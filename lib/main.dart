@@ -20,12 +20,6 @@ void main() {
               ),
             ),
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () {},
-            ),
-          ],
         ),
         body: Stack(
           children: [

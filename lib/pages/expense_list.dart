@@ -1,6 +1,7 @@
 import 'package:expenseapp/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:intl/intl.dart';
 
 class ExpenseList extends StatefulWidget {
   const ExpenseList({Key? key}) : super(key: key);
@@ -56,7 +57,6 @@ class _ExpenseListState extends State<ExpenseList> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Pie Chart
           AspectRatio(
             aspectRatio: 1.3,
             child: PieChart(
@@ -95,9 +95,9 @@ class _ExpenseListState extends State<ExpenseList> {
                           "\$${expenses[index].price.toString()}",
                           style: TextStyle(fontSize: 16.0),
                         ),
-                        SizedBox(height: 4.0), // Add some spacing
+                        SizedBox(height: 4.0), 
                         Text(
-                          "Date: ${expenses[index].date.toLocal()}",
+                          "Date: ${DateFormat.yMd().format(expenses[index].date.toLocal())}",
                           style: TextStyle(fontSize: 14.0, color: Colors.grey),
                         ),
                       ],
@@ -122,7 +122,7 @@ class _ExpenseListState extends State<ExpenseList> {
         PieChartSectionData(
           color: getCategoryColor(category),
           value: amount,
-          title: '${percentage.toStringAsFixed(2)}%',
+          title: '${percentage.toStringAsFixed(0)}%',
           radius: 50,
           titleStyle: TextStyle(
             fontSize: 16,
