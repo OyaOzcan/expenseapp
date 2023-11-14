@@ -1,6 +1,7 @@
 // identifier => kimlik belirleyici (id)
-
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart';
 
 const uuid = Uuid();
 
@@ -29,3 +30,36 @@ class Expense {
 
 // Enums
 // Enumerated Type
+
+Color getCategoryColor(Category category) {
+    switch (category) {
+      case Category.food:
+        return Color.fromARGB(255, 101, 80, 243);
+      case Category.education:
+        return Color.fromARGB(255, 208, 92, 247);
+      case Category.travel:
+        return Color.fromARGB(255, 255, 146, 120);
+      default:
+        return Colors.grey;
+    }
+  }
+
+  Icon getCategoryIcon (Category category) {
+    switch (category) {
+      case Category.food:
+        return Icon(Icons.fastfood, color: getCategoryColor(category));
+      case Category.education:
+        return Icon(Icons.school, color: getCategoryColor(category));
+      case Category.travel:
+        return Icon(Icons.flight, color: getCategoryColor(category));
+      default:
+        return Icon(Icons.help, color: getCategoryColor(category));
+    }
+
+  }
+  extension ExpenseExtension on Expense {
+   String get formattedDate {
+    var formatter = DateFormat.yMd();
+    return formatter.format(date);
+  }
+  }
