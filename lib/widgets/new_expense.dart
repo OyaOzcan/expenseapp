@@ -13,7 +13,7 @@ class _NewExpenseState extends State<NewExpense> {
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
   late DateTime selectedDate = DateTime.now();
-  late Category selectedCategory = Category.food; 
+  late Category selectedCategory = Category.food; // Default category
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -80,6 +80,7 @@ class _NewExpenseState extends State<NewExpense> {
               date: selectedDate,
               category: selectedCategory,
             );
+            // Burada yeni harcamayı kaydetmek için bir işlem yapabilirsiniz.
           },
           child: const Text("Save"),
         ),
