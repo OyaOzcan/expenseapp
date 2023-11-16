@@ -80,7 +80,6 @@ class _NewExpenseState extends State<NewExpense> {
               date: selectedDate,
               category: selectedCategory,
             );
-            // Burada yeni harcamayı kaydetmek için bir işlem yapabilirsiniz.
           },
           child: const Text("Save"),
         ),
