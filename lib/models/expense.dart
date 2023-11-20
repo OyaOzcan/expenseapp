@@ -39,6 +39,8 @@ Color getCategoryColor(Category category) {
         return Color.fromARGB(255, 208, 92, 247);
       case Category.travel:
         return Color.fromARGB(255, 255, 146, 120);
+      case Category.work:
+        return Color.fromARGB(255, 66, 204, 201);
       default:
         return Colors.grey;
     }
@@ -52,6 +54,8 @@ Color getCategoryColor(Category category) {
         return Icon(Icons.school, color: getCategoryColor(category));
       case Category.travel:
         return Icon(Icons.flight, color: getCategoryColor(category));
+      case Category.work:
+        return Icon(Icons.computer, color: getCategoryColor(category));
       default:
         return Icon(Icons.help, color: getCategoryColor(category));
     }
@@ -62,4 +66,5 @@ Color getCategoryColor(Category category) {
     var formatter = DateFormat.yMd();
     return formatter.format(date);
   }
+  
   }

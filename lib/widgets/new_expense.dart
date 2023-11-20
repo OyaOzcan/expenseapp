@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:expenseapp/models/expense.dart';
+import 'package:expenseapp/widgets/chart.dart';
+
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({Key? key}) : super(key: key);
+  const NewExpense({Key? key, required this.addExpense}) : super(key: key);
+
+  final Function(Expense) addExpense;
 
   @override
   _NewExpenseState createState() => _NewExpenseState();
@@ -12,20 +16,58 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
-  late DateTime selectedDate = DateTime.now();
-  late Category selectedCategory = Category.food; // Default category
+  late DateTime _selectedDate = DateTime.now();
+  late Category _selectedCategory = Category.food; 
+  late Chart _chart;
+  //chartı ekle
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: _selectedDate,
       firstDate: DateTime(1900, 1, 1),
       lastDate: DateTime.now(),
     );
-    if (picked != null && picked != selectedDate) {
+    if (picked != null && picked != _selectedDate) {
       setState(() {
-        selectedDate = picked;
+        _selectedDate = picked;
       });
+    }
+  }
+
+  void _addNewExpense() {
+    final amount = double.tryParse(_amountController.text);
+    if (amount == null ||
+        amount < 0 ||
+        _nameController.text.isEmpty ||
+        _selectedDate == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: const Text("Error"),
+            content: const Text("Please fill all blank areas."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx);
+                },
+                child: const Text("Okay"),
+              )
+            ],
+          );
+        },
+      );
+    } else {
+      widget.addExpense(
+        Expense(
+          name: _nameController.text,
+          price: amount,
+          date: _selectedDate,
+          category: _selectedCategory,
+        ),
+      );
+      Navigator.pop(context);
     }
   }
 
@@ -52,38 +94,45 @@ class _NewExpenseState extends State<NewExpense> {
         ),
         const Text("Select Date"),
         Text(
-          'Date: ${DateFormat.yMd().format(selectedDate)}',
+          'Date: ${DateFormat.yMd().format(_selectedDate)}',
         ),
         const SizedBox(height: 20),
-        DropdownButton<Category>(
-          value: selectedCategory,
-          onChanged: (Category? newValue) {
-            if (newValue != null) {
-              setState(() {
-                selectedCategory = newValue;
-              });
-            }
-          },
-          items: Category.values.map<DropdownMenuItem<Category>>((Category category) {
-            return DropdownMenuItem<Category>(
-              value: category,
-              child: Text(category.toString().split('.').last),
-            );
-          }).toList(),
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () {
-            Expense newExpense = Expense(
-              name: _nameController.text,
-              price: double.parse(_amountController.text),
-              date: selectedDate,
-              category: selectedCategory,
-            );
-          },
-          child: const Text("Save"),
-        ),
-      ],
-    );
-  }
+              DropdownButton<Category>(
+                value: _selectedCategory,
+                items: Category.values.map((category) {
+                  return DropdownMenuItem(
+                    value: category,
+                    child: Text(category.name.toString()),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    if (value != null) _selectedCategory = value;
+                  });
+                },
+              ),
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Cancel"),
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      _addNewExpense();
+                    },
+                    child: const Text("Save"),
+                  ),
+                ],
+              ),
+            ],
+          );
+        }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:expenseapp/models/expense.dart';
+import 'package:expenseapp/widgets/new_expense.dart';
 
 class Chart extends StatefulWidget {
   final List<Expense> expenses;
