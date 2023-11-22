@@ -21,10 +21,8 @@ class ChartState extends State<Chart> {
   }
 
   void calculateCategoryExpenses() {
-    // Temizleme işlemi
     categoryExpenses.clear();
 
-    // Yeniden hesaplama işlemi
     widget.expenses.forEach((expense) {
       categoryExpenses.update(
         expense.category,
