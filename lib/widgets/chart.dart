@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:expenseapp/models/expense.dart';
-import 'package:expenseapp/widgets/new_expense.dart';
 
 class Chart extends StatefulWidget {
   final List<Expense> expenses;
@@ -9,10 +8,10 @@ class Chart extends StatefulWidget {
   const Chart({Key? key, required this.expenses}) : super(key: key);
 
   @override
-  _ChartState createState() => _ChartState();
+  ChartState createState() => ChartState();
 }
 
-class _ChartState extends State<Chart> {
+class ChartState extends State<Chart> {
   Map<Category, double> categoryExpenses = {};
 
   @override
@@ -22,6 +21,10 @@ class _ChartState extends State<Chart> {
   }
 
   void calculateCategoryExpenses() {
+    // Temizleme işlemi
+    categoryExpenses.clear();
+
+    // Yeniden hesaplama işlemi
     widget.expenses.forEach((expense) {
       categoryExpenses.update(
         expense.category,

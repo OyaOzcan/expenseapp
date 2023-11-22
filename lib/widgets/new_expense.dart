@@ -1,13 +1,11 @@
+import 'package:expenseapp/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:expenseapp/models/expense.dart';
-import 'package:expenseapp/widgets/chart.dart';
-
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({Key? key, required this.addExpense}) : super(key: key);
+  const NewExpense({Key? key, required this.onAdd}) : super(key: key);
 
-  final Function(Expense) addExpense;
+  final void Function(Expense expense) onAdd;
 
   @override
   _NewExpenseState createState() => _NewExpenseState();
@@ -18,7 +16,6 @@ class _NewExpenseState extends State<NewExpense> {
   final _amountController = TextEditingController();
   late DateTime _selectedDate = DateTime.now();
   late Category _selectedCategory = Category.food; 
-  late Chart _chart;
   //chartı ekle
 
   Future<void> _selectDate(BuildContext context) async {
@@ -59,14 +56,12 @@ class _NewExpenseState extends State<NewExpense> {
         },
       );
     } else {
-      widget.addExpense(
-        Expense(
+      Expense expense = Expense(
           name: _nameController.text,
           price: amount,
-          date: _selectedDate,
-          category: _selectedCategory,
-        ),
-      );
+          date: _selectedDate!,
+          category: _selectedCategory);
+      widget.onAdd(expense);
       Navigator.pop(context);
     }
   }
