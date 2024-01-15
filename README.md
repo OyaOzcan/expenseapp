@@ -1,16 +1,4 @@
-# expenseapp
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![1](https://github.com/OyaOzcan/expenseapp/assets/141520129/0124806e-c7a4-496d-80c1-1c06929bce04)
+![2](https://github.com/OyaOzcan/expenseapp/assets/141520129/c969ca0c-66cc-4a4e-a343-1c4600038349)
+![3](https://github.com/OyaOzcan/expenseapp/assets/141520129/9db3f297-a0e4-49dd-ad9d-fe1866a8026b)
+![4](https://github.com/OyaOzcan/expenseapp/assets/141520129/3c1bec01-78b0-4469-b998-82180c14d4ae)
